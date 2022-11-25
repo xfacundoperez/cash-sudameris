@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="ir_cron_bm_official_out_of_hours_notification" model="ir.cron">
+            <field name="name">Funcionarios: Notificaciones Planificadas</field>
+            <field name="model_id" ref="model_bm_official" />
+            <field name="state">code</field>
+            <field name="code"># Available variables:
+#  - env: Odoo Environment on which the action is triggered
+#  - model: Odoo Model of the record on which the action is triggered; is a void recordset
+#  - record: record on which the action is triggered; may be void
+#  - records: recordset of all records on which the action is triggered in multi-mode; may be void
+#  - time, datetime, dateutil, timezone: useful Python libraries
+#  - float_compare: Odoo function to compare floats based on specific precisions
+#  - log: log(message, level='info'): logging function to record debug information in ir.logging table
+#  - Warning: Warning Exception to use with raise
+# To return an action, assign: action = {...}
+# All messages received between 4:30 p.m. and 8:59 a.m. are sent at 9:00 a.m.
+# All messages received between 9:00 a.m. and 10:59 a.m. are sent at 11:00 a.m.
+# All messages received between 11:00 a.m. and 12:59 p.m. are sent at 1:00 p.m.
+# All messages received between 1:00 p.m. and 2:59 p.m. are sent at 3:00 p.m.
+# All messages received between 3:00 p.m. and 4:29 p.m. are sent at 4:30 p.m.
+# All messages received are notified from Monday to Friday,
+#  - Next Monday the messages of the weekend will be notified
+
+# Fuerzo a que se ejecute con el timezone del usuario (1)
+# Para que funcione correctamente debe estar seteado en America/Asuncion
+tz = timezone(env.user.tz)
+now = datetime.datetime.now(tz)
+
+# Formato de la fecha y hora
+dtformat = '%d-%m-%Y %H:%M:%S'
+
+allowed = {
+	'days': ['1', '2', '3', '4', '5'], # 0: Domingo, 1: Lunes, ..., 5: viernes, 6: Sabado
+	'hours': [
+	  (9, 0),
+    (11, 0),
+    (13, 0),
+    (15, 0),
+    (16, 30)
+	  ]
+}
+
+# Convierno las horas anteriores a formate datetime
+# para luego poder compararlo
+# a cada horario le doy 5 minutos extra para que analice
+for idx, hour in enumerate(allowed['hours']):
+    dt_hour = now.replace(hour=hour[0], minute=hour[1], second=0)
+    # Sobreescribo el Array en la posición actual (idx): datetime, datetime + 5 minutos
+    allowed['hours'][idx] = (
+      dt_hour, # Hora permitida
+      dt_hour + datetime.timedelta(minutes=5) # Hora permitida más 5 minutos
+    )
+
+if (now.strftime('%w') in allowed['days']):
+  for allowed_hour in allowed['hours']:
+    # Si la hora en la que se ejecuta está entre
+    # la hora permitida y 5 minutos después
+    # de la hora permitida, se ejecuta
+    if (now &gt;= allowed_hour[0] and now &lt;= allowed_hour[1]):
+      model._notify_official_cam_reject()
+      model._notify_official_refer_cp()
+      model._notify_official_out_of_hours()
+      # Fuerzo a enviar los mails pendientes
+      env['mail.mail'].process_email_queue()
+      break
+            </field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">30</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(hours=1)).strftime('%Y-%m-%d %H:00:00')" />
+            <field eval="False" name="doall" />
+            <field name="priority">1000</field>
+        </record>
+
+    </data>
+
+</odoo>

@@ -1,0 +1,68 @@
+<odoo>
+    <data>
+        <record id="product_tree_view" model="ir.ui.view">
+            <field name="name">bm.product.tree.view</field>
+            <field name="model">bm.product</field>
+            <field name="arch" type="xml">
+                <tree string="Paquetes / productos" export_xlsx="false">
+                    <field name="name" />
+                    <field name="product_type" />
+                    <field name="minimum_salary" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_form_view" model="ir.ui.view">
+            <field name="name">bm.product.form.view</field>
+            <field name="model">bm.product</field>
+            <field name="arch" type="xml">
+                <form string="Paquetes / productos">
+                    <!-- <header>
+                    <button name="btn_aprobar" string="Aprobar" confirm="¿Estás seguro que deseas aprobar este registro? Verifique el salario antes de aceptar" states="preliquidacion" class="oe_highlight" groups="hr.group_hr_manager" type="object" />
+                    <button name="btn_preliquidacion" string="Volver a borrador" confirm="¿Estás seguro que deseas volver este registro a borrador? Verifique el salario antes de aceptar" states="aprobado" class="oe_highlight" type="object" />
+                    <field name="state" widget="statusbar" statusbar_visible="preliquidacion,aprobado,enproceso,cancelado,liquidado" statusbar_colors='{"cancelado":"red","aprobado":"blue","liquidado":"green"}' />
+                    </header> -->
+                    <sheet>
+                        <field name="product_type" widget="radio" options="{'horizontal': true}" />
+                        <group string="Productos simple" attrs="{'invisible':[('product_type', '=', 'kit')]}">
+                            <field name="name" string="Nombre del producto" placeholder="Nombre del producto" attrs="{'required':[('product_type', '!=', 'kit')]}" />
+                        </group>
+                        <group string="Productos del paquete" attrs="{'invisible':[('product_type', '!=', 'kit')]}">
+                            <field name="name" string="Nombre del kit" placeholder="Nombre del kit" attrs="{'required':[('product_type', '=', 'kit')]}" />
+                            <field name="child_ids" widget="many2many_tags" options="{'no_create_edit': True}" attrs="{'required':[('product_type', '=', 'kit')]}" placeholder="Productos del kit" />
+                            <field name="minimum_salary" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="product_search_view" model="ir.ui.view">
+            <field name="name">bm.product.search.view</field>
+            <field name="model">bm.product</field>
+            <field name="arch" type="xml">
+                <search string="Filtro productos">
+                    <field name="name" filter_domain="[('name', 'ilike', self)]"></field>
+                    <field name="name" />
+                    <separator />
+                    <filter string="Solo kits" name="kits_filter" domain="[('product_type', '=', 'kit')]"></filter>
+                    <filter string="Solo productos" name="products_filter" domain="[('product_type', '=', 'producto')]"></filter>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_product_open_view" model="ir.actions.act_window">
+            <field name="name">Paquetes / productos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">bm.product</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_products_filter":1}</field>
+            <field name="help" type="html">
+                <div class="oe_view_nocontent_create">
+                    <p>Agregar un nuevo paquete o producto!</p>
+                    <p>Todavia no tienes ningun paquete/producto, puedes agregar en el botón Crear!</p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

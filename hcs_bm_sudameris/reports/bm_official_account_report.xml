@@ -1,0 +1,66 @@
+<odoo>
+    <data>
+        <report id="bm_official_account_report" string="Alta de cuentas (PDF)" model="bm.official" report_type="qweb-pdf" groups="hcs_bm_sudameris.group_bm_bank_cam" menu="False" name="hcs_bm_sudameris.bm_official_account_report_template" />
+
+        <template id="bm_official_account_report_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <style>
+                        table, th {
+                            border-collapse: collapse;
+                        }
+                        td {
+                            border: 2px solid black;
+                        }
+                    </style>
+                    <div class="page">
+                        <center>
+                            <b>
+                                <u>
+                                    <h2>INFORME DE ALTAS DE USUARIOS</h2>
+                                </u>
+                            </b>
+                            <div class="oe_structure" />
+                            <table style="width: 100%;">
+                                <tbody>
+                                    <tr style="background-color: #c00000;text-align: center;color: white;">
+                                        <td>N°</td>
+                                        <td>EMPRESA</td>
+                                        <td>N° DE CEDULA</td>
+                                        <td>DENOMINACIÓN</td>
+                                        <td>FECHA DE ALTA</td>
+                                    </tr>
+                                    <t t-set="counter" t-value="1" />
+                                    <t t-foreach="docs" t-as="doc">
+                                        <tr style="">
+                                            <td style="border: 0;">
+                                                <t t-esc="counter" />
+                                            </td>
+                                            <td style="border: 0;">
+                                                (
+                                                <span t-esc="str(doc.company_id.company_code).replace('.', '')" />
+                                                )
+                                                <span t-field="doc.company_id.name" />
+                                            </td>
+                                            <td style="border: 0;">
+                                                <span t-field="doc.identification_id" />
+                                            </td>
+                                            <td style="border: 0;">
+                                                <span t-field="doc.name" />
+                                            </td>
+                                            <td style="border: 0;">
+                                                <span t-field="doc.account_registration" />
+                                            </td>
+                                        </tr>
+                                        <t t-set="counter" t-value="counter + 1" />
+                                    </t>
+                                </tbody>
+                            </table>
+                        </center>
+                    </div>
+                    <div class="footer"></div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

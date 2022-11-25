@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <data>
+
+                <menuitem id="menu_bm_root" name="Funcionarios" groups="base.group_user" web_icon="hcs_bm_sudameris,static/description/icon.png" sequence="0" />
+
+                <menuitem id="menu_bm_inbox_main" name="Bandejas" parent="hcs_bm_sudameris.menu_bm_root" sequence="0" />
+
+                <menuitem id="menu_bm_inbox_official_payroll_admin" name="Funcionarios - Centro Payroll (Administrador)" action="action_official_open_view_payroll_admin" parent="hcs_bm_sudameris.menu_bm_inbox_main" sequence="0" groups="group_bm_bank_payroll_admin" />
+
+                <menuitem id="menu_bm_inbox_official_payroll" name="Funcionarios - Centro Payroll" action="action_official_open_view_payroll" parent="hcs_bm_sudameris.menu_bm_inbox_main" sequence="1" groups="group_bm_bank_payroll" />
+
+                <menuitem id="menu_bm_inbox_official_payroll_deliveries" name="Funcionarios - Centro Payroll / Entregas" action="action_official_open_view_payroll_deliveries" parent="hcs_bm_sudameris.menu_bm_inbox_main" sequence="2" groups="group_bm_bank_payroll_deliveries" />
+
+                <menuitem id="menu_bm_inbox_official_cam" name="Funcionarios - Centro Altas Masivas" action="action_official_open_view_cam" parent="hcs_bm_sudameris.menu_bm_inbox_main" sequence="3" groups="group_bm_bank_cam" />
+
+                <menuitem id="menu_bm_inbox_official_collections" name="Funcionarios - Cobranzas" action="action_official_open_view_collections" parent="hcs_bm_sudameris.menu_bm_inbox_main" sequence="3" groups="group_bm_bank_collections" />
+
+                <menuitem id="menu_bm_inbox_official_company" name="Funcionarios" action="action_official_open_view_company" parent="hcs_bm_sudameris.menu_bm_inbox_main" sequence="4" groups="group_bm_company" />
+
+                <menuitem id="menu_bm_options_main" name="Opciones" parent="hcs_bm_sudameris.menu_bm_root" sequence="1" />
+
+                <!--<menuitem id="menu_bm_options_official_salary" name="Movimientos de salarios" parent="hcs_bm_sudameris.menu_bm_options_main" sequence="1"/>
+
+                <menuitem id="menu_bm_official_salary" name="Movimientos de salarios" action="action_official_salary_open_view" parent="hcs_bm_sudameris.menu_bm_options_official_salary" sequence="1" />
+
+                <menuitem id="menu_bm_official_salary_history" name="Historial" action="action_official_salary_history_open_view" parent="hcs_bm_sudameris.menu_bm_options_official_salary" sequence="2" />-->
+
+                <menuitem id="menu_bm_official_salary" name="Movimientos de salarios" action="action_official_salary_open_view" parent="hcs_bm_sudameris.menu_bm_options_main" sequence="1" />
+
+                <menuitem id="menu_bm_options_official_departure" name="Licencias" action="action_official_departure_open_view" parent="hcs_bm_sudameris.menu_bm_options_main" sequence="2" />
+
+                <menuitem id="menu_bm_options_product" name="Paquetes / productos" action="action_product_open_view" parent="hcs_bm_sudameris.menu_bm_options_main" sequence="3" groups="group_bm_bank" />
+
+
+                <menuitem id="menu_bm_config" name="Configuración" parent="hcs_bm_sudameris.menu_bm_root" sequence="2" />
+
+                <menuitem id="menu_bm_job" name="Puestos de trabajo" action="job_open_view_action" parent="hcs_bm_sudameris.menu_bm_config" sequence="0" />
+
+                <menuitem id="menu_bm_department" name="Departamentos" action="action_department_open_view" parent="hcs_bm_sudameris.menu_bm_config" sequence="1" />
+
+                <menuitem id="menu_bm_branch" name="Sucursales" action="action_branch_open_view" parent="hcs_bm_sudameris.menu_bm_config" groups="group_bm_bank" sequence="2" />
+
+                <!-- Menu Contactos -->
+                <menuitem id="menu_res_country_location" name="Localidades" action="open_view_bm_res_country_location" parent="contacts.menu_localisation" sequence="2" />
+
+                <menuitem id="menu_res_country_location" name="Localidades" action="open_view_bm_res_country_location" parent="contacts.menu_localisation" sequence="2" />
+
+                <menuitem id="menu_res_country_neighborhood" name="Barrios" action="open_view_bm_res_country_neighborhood" parent="contacts.menu_localisation" sequence="3" />
+
+                <!-- Menu Usuarios y Compañias -->
+                <menuitem id="menu_bm_company_account" name="Cuenta de compañias" action="open_view_bm_company_account" parent="base.menu_users" sequence="20" />
+
+        </data>
+</odoo>

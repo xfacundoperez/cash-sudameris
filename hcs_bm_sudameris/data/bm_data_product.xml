@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="bm.product" id="bm_product_debit_card">
+            <field name="name">T. Débito.</field>
+        </record>
+        <record model="bm.product" id="bm_product_prepaid_card">
+            <field name="name">T. Prepaga.</field>
+        </record>
+        <record model="bm.product" id="bm_product_credit_card_plus">
+            <field name="name">T. Crédito Plus.</field>
+        </record>
+        <record model="bm.product" id="bm_product_credit_card_black">
+            <field name="name">T. Credito Black - Infinite.</field>
+        </record>
+        <record model="bm.product" id="bm_product_agile_loan">
+            <field name="name">Préstamo Ágil.</field>
+        </record>
+        <record model="bm.product" id="bm_product_advance_line">
+            <field name="name">Linea de Adelanto.</field>
+        </record>
+
+        <record model="bm.product" id="bm_product_welcome_kit_1">
+            <field name="name">WK 1.</field>
+            <field name="product_type">kit</field>
+            <field name="child_ids" eval="[(4, ref('bm_product_debit_card')), (4, ref('bm_product_prepaid_card')), (4, ref('bm_product_agile_loan')), (4, ref('bm_product_advance_line'))]"></field>
+            <field name="minimum_salary">1</field> <!-- Hasta 3 Millones de Guaranies -->
+        </record>
+
+        <record model="bm.product" id="bm_product_welcome_kit_2">
+            <field name="name">WK. 2</field>
+            <field name="product_type">kit</field>
+            <field name="child_ids" eval="[(4, ref('bm_product_debit_card')), (4, ref('bm_product_credit_card_plus')), (4, ref('bm_product_agile_loan')), (4, ref('bm_product_advance_line'))]"></field>
+            <field name="minimum_salary">3000000</field> <!-- Desde 3 Millones Hasta 25 Millones de Guaranies -->
+        </record>
+
+        <record model="bm.product" id="bm_product_welcome_kit_3">
+            <field name="name">WK. 3</field>
+            <field name="product_type">kit</field>
+            <field name="child_ids" eval="[(4, ref('bm_product_debit_card')), (4, ref('bm_product_credit_card_black')), (4, ref('bm_product_agile_loan')), (4, ref('bm_product_advance_line'))]"></field>
+            <field name="minimum_salary">25000000</field> <!-- Desde 25 Millones de Guaranies -->
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,346 @@
+<odoo>
+  <data>
+    <template id="login_layout_inherited_hcs_bm_sudameris" inherit_id="web.login">
+      <xpath expr="*" position="after">
+        <script type="text/javascript" src="/hcs_bm_sudameris/static/src/js/uuid.min.js"></script>
+        <script type="text/javascript" src="/hcs_bm_sudameris/static/src/js/sha256.js"></script>
+        <script type="text/javascript" src="/hcs_bm_sudameris/static/src/js/enc-base64.js"></script>
+        <script type="text/javascript" src="/hcs_bm_sudameris/static/src/js/michi-auth-sudameris.js"></script>
+        <link rel="stylesheet" href="/hcs_bm_sudameris/static/src/css/style.css" />
+      </xpath>
+      <xpath expr="//div[@class='form-group field-login']" position="replace">
+        <input id="userType" name="userType" type="hidden" value="" />
+        <div class="form-group field-country">
+          <label for="country">PAÍS EMISOR DE DOCUMENTO</label>
+          <select name="country" id="country" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autofocus="autofocus" autocapitalize="off">
+            <option value="586" selected="">Paraguay</option>
+            <option value="13">Afganistan</option>
+            <option value="17">Albania</option>
+            <option value="20">Alboran Y Perejil, Islas</option>
+            <option value="23">Alemania</option>
+            <option value="37">Andorra</option>
+            <option value="40">Angola</option>
+            <option value="41">Anguila</option>
+            <option value="43">Antigua Y Barbuda</option>
+            <option value="47">Antillas Holandesas</option>
+            <option value="53">Arabia Saudita</option>
+            <option value="59">Argelia</option>
+            <option value="63">Argentina</option>
+            <option value="26">Armenia</option>
+            <option value="27">Aruba</option>
+            <option value="39">Australia</option>
+            <option value="69">Australia</option>
+            <option value="72">Austria</option>
+            <option value="74">Azerbaiyan</option>
+            <option value="77">Bahamas, Islas</option>
+            <option value="80">Bahrein</option>
+            <option value="991">Balcans</option>
+            <option value="81">Bangladesh</option>
+            <option value="83">Barbados</option>
+            <option value="91">Belarus</option>
+            <option value="87">Belgica-luxemburgo</option>
+            <option value="88">Belice</option>
+            <option value="229">Benin</option>
+            <option value="90">Bermudas</option>
+            <option value="93">Birmania</option>
+            <option value="97">Bolivia</option>
+            <option value="98">Bonaire, San Eustatius Y Saba</option>
+            <option value="29">Bosnia Y Herzegovina</option>
+            <option value="101">Botswana</option>
+            <option value="105">Brasil</option>
+            <option value="108">Brunei</option>
+            <option value="111">Bulgaria</option>
+            <option value="31">Burkina Faso</option>
+            <option value="115">Burundi</option>
+            <option value="119">Butan</option>
+            <option value="127">Cabo Verde,rca. De</option>
+            <option value="137">Caiman, Islas</option>
+            <option value="141">Camboya</option>
+            <option value="145">Camerum</option>
+            <option value="149">Canada</option>
+            <option value="153">Canarias, Islas</option>
+            <option value="203">Chad</option>
+            <option value="207">Checoslovaquia</option>
+            <option value="211">Chile</option>
+            <option value="215">China</option>
+            <option value="221">Chipre</option>
+            <option value="159">Ciudad Del Vaticano</option>
+            <option value="165">Cocos, Islas</option>
+            <option value="169">Colombia</option>
+            <option value="173">Comoras</option>
+            <option value="177">Congo</option>
+            <option value="183">Cook,islas</option>
+            <option value="187">Corea Del Norte</option>
+            <option value="190">Corea Del Sur</option>
+            <option value="193">Costa De Marfil</option>
+            <option value="196">Costa Rica</option>
+            <option value="198">Croacia</option>
+            <option value="199">Cuba</option>
+            <option value="201">Curazao</option>
+            <option value="232">Dinamarca</option>
+            <option value="235">Dominica, Isla</option>
+            <option value="239">Ecuador</option>
+            <option value="240">Egipto</option>
+            <option value="242">El Salvador</option>
+            <option value="244">Emiratos Arabes Unidos</option>
+            <option value="243">Eritrea</option>
+            <option value="897">Escocia</option>
+            <option value="246">Eslovaquia</option>
+            <option value="247">Eslovenia</option>
+            <option value="245">España</option>
+            <option value="249">Estados Unidos</option>
+            <option value="251">Estonia</option>
+            <option value="253">Etiopia</option>
+            <option value="259">Feroe, Islas</option>
+            <option value="870">Fiji</option>
+            <option value="267">Filipinas</option>
+            <option value="271">Finlandia</option>
+            <option value="275">Francia</option>
+            <option value="281">Gabon</option>
+            <option value="285">Gambia</option>
+            <option value="287">Georgia</option>
+            <option value="289">Ghana</option>
+            <option value="293">Gibraltar</option>
+            <option value="301">Grecia</option>
+            <option value="297">Grenada</option>
+            <option value="305">Groenlandia</option>
+            <option value="309">Guadalupe Y Dependencias</option>
+            <option value="313">Guam</option>
+            <option value="317">Guatemala</option>
+            <option value="325">Guayana Francesa</option>
+            <option value="992">Guernsey</option>
+            <option value="334">Guinea Bissau</option>
+            <option value="331">Guinea Ecuatorial</option>
+            <option value="337">Guyana</option>
+            <option value="341">Haiti</option>
+            <option value="573">Holanda</option>
+            <option value="345">Honduras</option>
+            <option value="351">Hong Kong</option>
+            <option value="355">Hungria</option>
+            <option value="361">India</option>
+            <option value="365">Indonesia</option>
+            <option value="369">Irak</option>
+            <option value="372">Iran</option>
+            <option value="375">Irlanda -eire-</option>
+            <option value="993">Isla De Man</option>
+            <option value="379">Islandia</option>
+            <option value="677">Islas Salomon</option>
+            <option value="383">Israel</option>
+            <option value="386">Italia</option>
+            <option value="391">Jamaica</option>
+            <option value="399">Japon</option>
+            <option value="994">Jersey</option>
+            <option value="403">Jordania</option>
+            <option value="406">Kazajistan</option>
+            <option value="410">Kenia</option>
+            <option value="412">Kirguizistan</option>
+            <option value="411">Kiribati</option>
+            <option value="414">Kosovo</option>
+            <option value="413">Kuwait</option>
+            <option value="420">Laos</option>
+            <option value="429">Latvia</option>
+            <option value="426">Lesotho</option>
+            <option value="431">Libano</option>
+            <option value="434">Liberia</option>
+            <option value="438">Libia</option>
+            <option value="440">Liechtenstein</option>
+            <option value="999">Lista Internet-narcotrafico</option>
+            <option value="443">Lituania</option>
+            <option value="445">Luxemburgo</option>
+            <option value="447">Macao</option>
+            <option value="448">Macedonia</option>
+            <option value="450">Madagascar</option>
+            <option value="455">Malasia</option>
+            <option value="458">Malawi</option>
+            <option value="461">Maldivas</option>
+            <option value="464">Mali</option>
+            <option value="467">Malta</option>
+            <option value="469">Marianas Septentrionales, Isla</option>
+            <option value="474">Marruecos</option>
+            <option value="472">Marshall (islas)</option>
+            <option value="477">Martinica</option>
+            <option value="485">Mauricio</option>
+            <option value="488">Mauritania</option>
+            <option value="493">Mexico</option>
+            <option value="494">Micronesia</option>
+            <option value="496">Moldova, Republica De</option>
+            <option value="498">Monaco</option>
+            <option value="497">Mongolia Rep.popular De</option>
+            <option value="500">Montenegro</option>
+            <option value="501">Montserrat, Isla</option>
+            <option value="504">Moyotte</option>
+            <option value="505">Mozambique</option>
+            <option value="507">Namibia</option>
+            <option value="508">Nauru</option>
+            <option value="511">Navidad, Islas</option>
+            <option value="517">Nepal</option>
+            <option value="521">Nicaragua</option>
+            <option value="525">Niger</option>
+            <option value="528">Nigeria</option>
+            <option value="531">Niue, Isla</option>
+            <option value="535">Norfolk,isla</option>
+            <option value="538">Noruega</option>
+            <option value="542">Nueva Caledonia</option>
+            <option value="548">Nueva Zelandia</option>
+            <option value="556">Oman</option>
+            <option value="563">Pacifico,islas-administr.eeuu-</option>
+            <option value="569">Pacifico,islas-fideicomis.eeuu</option>
+            <option value="566">Pacifico,islas-posesion Eeuu-</option>
+            <option value="576">Pakistan</option>
+            <option value="578">Palau</option>
+            <option value="579">Palestina</option>
+            <option value="580">Panama</option>
+            <option value="545">Papua Nueva Guinea</option>
+            <option value="589">Peru</option>
+            <option value="593">Pitcairn, Isla</option>
+            <option value="599">Polinesia Francesa</option>
+            <option value="603">Polonia</option>
+            <option value="607">Portugal</option>
+            <option value="611">Puerto Rico</option>
+            <option value="618">Qatar</option>
+            <option value="628">Reino Unido</option>
+            <option value="640">Republica Centroafricana</option>
+            <option value="644">Republica Checa</option>
+            <option value="329">Republica De Guinea</option>
+            <option value="647">Republica Dominicana</option>
+            <option value="660">Reunion,isla</option>
+            <option value="670">Rumania</option>
+            <option value="676">Rusia</option>
+            <option value="675">Rwanda</option>
+            <option value="685">Sahara Occidental</option>
+            <option value="687">Samoa</option>
+            <option value="690">Samoa Occidental,edos Indep.</option>
+            <option value="693">San Bartolome</option>
+            <option value="695">San Kitts Y Nevis</option>
+            <option value="697">San Marino</option>
+            <option value="698">San Martin (parte Francesa)</option>
+            <option value="699">San Martin (parte Holandesa)</option>
+            <option value="700">San Pedro Y Miquelon</option>
+            <option value="705">San Vicente,isla</option>
+            <option value="710">Santa Elena</option>
+            <option value="715">Santa Lucia,isla</option>
+            <option value="720">Santo Tome Y Principe,islas</option>
+            <option value="728">Senegal</option>
+            <option value="885">Serbia</option>
+            <option value="731">Seychelles</option>
+            <option value="735">Sierra Leona</option>
+            <option value="741">Singapur</option>
+            <option value="744">Siria</option>
+            <option value="748">Somalia</option>
+            <option value="750">Sri Lanka</option>
+            <option value="756">Sudafrica Y Namibia, Rca De</option>
+            <option value="759">Sudan</option>
+            <option value="760">Sudan Del Sur</option>
+            <option value="764">Suecia</option>
+            <option value="767">Suiza</option>
+            <option value="770">Surinam</option>
+            <option value="772">Svalbard Y Jan Mayen, Islas</option>
+            <option value="773">Swazilandia</option>
+            <option value="776">Tailandia</option>
+            <option value="218">Taiwan</option>
+            <option value="780">Tanzania</option>
+            <option value="774">Tayikistan</option>
+            <option value="785">Territ.alta Comis.pacifico Occ</option>
+            <option value="788">Timor Oriental</option>
+            <option value="800">Togo</option>
+            <option value="85">Tokelan, Islas</option>
+            <option value="805">Tokelau</option>
+            <option value="810">Tonga</option>
+            <option value="815">Trinidad Y Tobago</option>
+            <option value="820">Tunez</option>
+            <option value="823">Turcas Y Caicos,islas</option>
+            <option value="825">Turkmenistan</option>
+            <option value="827">Turquia</option>
+            <option value="828">Tuvalu</option>
+            <option value="840">U. R. S. S.</option>
+            <option value="830">Ucrania</option>
+            <option value="833">Uganda</option>
+            <option value="845">Uruguay</option>
+            <option value="847">Uzbekistan</option>
+            <option value="551">Vanuatu</option>
+            <option value="850">Venezuela</option>
+            <option value="855">Vietnam</option>
+            <option value="863">Virgenes,islas-britanicas-</option>
+            <option value="866">Visgenes,islas-u.s.a.-</option>
+            <option value="875">Wallis Y Futuna, Isla</option>
+            <option value="880">Yemen</option>
+            <option value="783">Yibuti</option>
+            <option value="888">Zaire</option>
+            <option value="890">Zambia</option>
+            <option value="665">Zimbabwe</option>
+            <option value="895">Zona Del Canal De Panama</option>
+          </select>
+        </div>
+        <div class="form-group field-identify">
+          <label for="identify">TIPO DE IDENTIFICACIÓN</label>
+          <select type="text" id="identify" name="identify" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autofocus="autofocus" autocapitalize="off">
+            <option value="01" selected="">Cédula de Identidad</option>
+            <option value="02">Credencial Cívica</option>
+            <option value="04">Pasaporte</option>
+            <option value="05">DNI - Doc. Nac. Identid.</option>
+            <option value="16">Carnet-Inmigraciones</option>
+            <option value="20">Repres. Diplomáticas</option>
+          </select>
+        </div>
+        <div class="form-group field-login">
+          <label for="login">USUARIO/DOCUMENTO</label>
+          <input type="text" placeholder="Usuario/Documento" name="login" t-att-value="login" id="login" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autofocus="autofocus" autocapitalize="off" />
+        </div>
+      </xpath>
+      <xpath expr="//div[@class='form-group field-password']" position="replace">
+        <div class="form-group field-password">
+          <label for="password">CONTRASEÑA</label>
+          <input type="password" placeholder="Contraseña" name="password" id="password" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autocomplete="current-password" t-att-autofocus="'autofocus' if login else None" maxlength="4096" />
+        </div>
+      </xpath>
+      <xpath expr="//div[contains(@t-attf-class, 'clearfix')]" position="replace">
+        <p class="alert alert-danger text-center" id="api-alert" style="display: none" role="alert"></p>
+        <div class="checkbox my-2">
+          <label>
+            <input type="checkbox" id="checkbox" />
+            Login Local
+          </label>
+        </div>
+        <button type="submit" id="btn-login" class="btn btn-primary btn-block" disabled="true">Iniciar Sesión</button>
+        <t t-if="debug">
+          <button type="submit" name="redirect" value="/web/become" class="btn btn-link btn-sm btn-block d-none">Super usuario</button>
+        </t>
+        <div class="o_login_auth" />
+        <div id="cover-spin" class="cover-hide"></div>
+      </xpath>
+    </template>
+
+    <template id="web_login_layout_inherited_hcs_bm_sudameris" inherit_id="web.login_layout">
+      <xpath expr="//div[@class='container py-5']" position="replace">
+        <link rel="stylesheet" href="/hcs_bm_sudameris/static/src/css/login.css" />
+        <div class="container py-5">
+          <div t-attf-class="card border-0 mx-auto bg-100 {{login_card_classes}} o_database_list" style="max-width: 300px;">
+            <div class="card-body">
+              <div t-attf-class="text-center pb-3 border-bottom {{'mb-3' if form_small else 'mb-4'}}">
+                <img t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}" alt="Logo" style="max-height:120px; max-width: 100%; width:auto" />
+              </div>
+              <t t-raw="0" />
+              <div class="text-center small mt-4 pt-3 border-top">
+                <a class="border-right pr-2 mr-1" href="http://hcsinergia.com/" target="_blank">HC Sinergia</a>
+                <a href="https://www.odoo.com?utm_source=db&amp;utm_medium=auth" target="_blank">
+                  Desarrollado por
+                  <span>Odoo</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </xpath>
+    </template>
+
+    <template id="web_layout_inherited_hcs_bm_sudameris" inherit_id="web.layout">
+      <xpath expr="//title" position="replace">
+        <title>Cash Sudameris</title>
+      </xpath>
+      <xpath expr="//link[@type='image/x-icon']" position="replace">
+        <link rel="shortcut icon" href="/hcs_bm_sudameris/static/src/img/favicon.ico" type="image/x-icon" />
+      </xpath>
+    </template>
+
+  </data>
+</odoo>

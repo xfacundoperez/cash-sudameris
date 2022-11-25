@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Wizard Funcionario -->
+        <record id="bm_official_wizard_view_form" model="ir.ui.view">
+            <field name="name">bm.official.wizard.form</field>
+            <field name="model">bm.official.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="debugapibantotal" invisible="1" />
+                    <sheet>
+                        <group col="2" colspan="4">
+                            <field name="message" nolabel="1" />
+                        </group>
+                    </sheet>
+                    <notebook>
+                        <page string="Debug API Bantotal" attrs="{'invisible': [('debugapibantotal', '=', False)]}">
+                            <group>
+                                <field name="debug_trace" nolabel="1" />
+                            </group>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button string="Cerrar" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="bm_official_wizard_action" model="ir.actions.act_window">
+            <field name="name">Official Wizard</field>
+            <field name="res_model">bm.official.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="bm_official_wizard_view_form" />
+            <field name="target">new</field>
+        </record>
+        <!-- END Wizard Funcionario -->
+
+        <!-- Wizard Funcionario Rechazar CAM -->
+        <record id="bm_official_wizard_rejectcam_view_form" model="ir.ui.view">
+            <field name="name">bm.official.wizard.rejectcam.form</field>
+            <field name="model">bm.official.wizard.rejectcam</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="2" colspan="4">
+                            <field name="reject_reason" />
+                            <field name="reject_reason_description" attrs="{'invisible': [('reject_reason', '!=', '6')], 'required': [('reject_reason', '=', '6')]}" />
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="button_save" string="Guardar" type="object" class="btn-primary" />
+                        <button string="Cerrar" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="bm_official_wizard_rejectcam_action" model="ir.actions.act_window">
+            <field name="name">Motivo de rechazo</field>
+            <field name="res_model">bm.official.wizard.rejectcam</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="bm_official_wizard_rejectcam_view_form" />
+            <field name="target">new</field>
+        </record>
+        <!-- END Wizard Funcionario Rechazar CAM -->
+
+        <!-- Wizard Funcionario Cambio de estado CPE -->
+        <record id="bm_official_wizard_statuscpe_view_form" model="ir.ui.view">
+            <field name="name">bm.official.wizard.statuscpe.form</field>
+            <field name="model">bm.official.wizard.statuscpe</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="2" colspan="4">
+                            <field name="cpe_status" />
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="button_save" string="Guardar" type="object" class="btn-primary" />
+                        <button string="Cerrar" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="bm_official_wizard_statuscpe_action" model="ir.actions.act_window">
+            <field name="name">Payroll Entregas - Cambio de estado</field>
+            <field name="res_model">bm.official.wizard.statuscpe</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="bm_official_wizard_statuscpe_view_form" />
+            <field name="target">new</field>
+        </record>
+        <!-- END Wizard Funcionario Cambio de estado CPE -->
+
+    </data>
+</odoo>

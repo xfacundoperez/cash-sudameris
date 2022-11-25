@@ -1,0 +1,171 @@
+<odoo>
+    <data>
+        <record id="official_salary_tree_view" model="ir.ui.view">
+            <field name="name">bm.official.salary.tree.view</field>
+            <field name="model">bm.official.salary</field>
+            <field name="arch" type="xml">
+                <tree string="Movimientos de salario" create="false" editable="bottom" duplicate="false" export_xlsx="false" default_order="state" decoration-warning="state=='draft'" decoration-info="state=='aproved'" decoration-success="state=='done'">
+                    <field name="official" readonly="True" options='{"no_open": True, "no_create": True}' />
+                    <field name="official_identification_id" />
+                    <field name="amount_to_pay" attrs="{'readonly': [('state', '!=', 'draft')]}" required="True" />
+                    <field name="payment_date" attrs="{'readonly': [('state', '!=', 'draft')]}" required="True" />
+                    <field name="payment_mode" attrs="{'readonly': [('state', '!=', 'draft')]}" required="True" />
+                    <field name="charge_type" attrs="{'readonly': [('state', '!=', 'draft')]}" required="True" />
+                    <field name="official_currency_type" />
+                    <field name="last_payment_date" readonly="False" />
+                    <field name="payment_reason" readonly="False" />
+                    <field name="state" readonly="True" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="official_salary_form_view" model="ir.ui.view">
+            <field name="name">bm.official.salary.form.view</field>
+            <field name="model">bm.official.salary</field>
+            <field name="arch" type="xml">
+                <form string="Movimientos de salario" create="false" edit="false" duplicate="false" export_xlsx="false">
+                    <header>
+                        <button name="action_aprove_salary_movement" string="Aprobar" confirm="¿Estás seguro que deseas aprobar este registro? Verifique el salario antes de aceptar" states="draft" class="oe_highlight oe_read_only" type="object" />
+                        <button name="btn_draft" string="Volver a Preliquilación" confirm="¿Estás seguro que deseas volver este registro a borrador? Verifique el salario antes de aceptar" states="aproved,done" class="oe_highlight oe_read_only" type="object" />
+                        <field name="state" options="{'clickable':False}" widget="statusbar" statusbar_visible="draft,aproved,done" />
+                    </header>
+                    <sheet>
+                        <field name="company_id" invisible="1" />
+                        <group string="Información del funcionario">
+                            <field name="official" required="True" options='{"no_open": True, "no_create": True}' />
+                            <field name="official_identification_id" />
+                            <field name="official_currency_type" />
+                            <field name="official_gross_salary" />
+                            <field name="official_company_id" />
+                        </group>
+                        <group string="Información de liquidación">
+                            <group>
+                                <field name="charge_type" />
+                                <field name="amount_to_pay" readonly="0" />
+                                <field name="payment_date" />
+                                <field name="payment_mode" />
+                            </group>
+                            <group>
+                                <field name="operation_type" />
+                                <field name="operation_code" />
+                                <field name="suboperacion_code" />
+                                <field name="reference" placeholder="Número de referencia" />
+                                <field name="last_payment_date" />
+                                <field name="payment_reason" readonly="False" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="official_salary_search_view" model="ir.ui.view">
+            <field name="name">bm.official.salary.search.view</field>
+            <field name="model">bm.official.salary</field>
+            <field name="arch" type="xml">
+                <search string="Filtrar movimientos">
+                    <!-- <field name="name" filter_domain="[('name', 'ilike', self)]"></field> -->
+                    <field name="payment_date" />
+                    <separator />
+                    <filter string="Pagos del mes" name="payment_date_filter" domain="['&amp;',('payment_date', '&gt;=', (context_today() + relativedelta(weeks=-1,days=1,weekday=0)).strftime('%Y-%m-%d')),('payment_date', '&lt;=', (context_today() + relativedelta(day=31)).strftime('%Y-%m-%d'))]" />
+                </search>
+            </field>
+        </record>
+
+        <record id="action_official_salary_aproved" model="ir.actions.server">
+            <field name="name">Aprobar</field>
+            <field name="model_id" ref="model_bm_official_salary" />
+            <field name="binding_model_id" ref="model_bm_official_salary" />
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = records.action_aprove_salary_movement()
+            </field>
+        </record>
+
+        <record id="action_official_salary_open_view" model="ir.actions.act_window">
+            <field name="name">Movimiento de salarios</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">bm.official.salary</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_payment_date_filter":1}</field>
+            <field name="help" type="html">
+                <div class="oe_view_nocontent_create">
+                    <p>Agregar una nueva liquidación de Salario!</p>
+                    <p>Todavia no tienes ninguna liquidación, puedes agregar en el botón Crear!</p>
+                </div>
+            </field>
+        </record>
+
+        <record id="official_salary_history_tree_view" model="ir.ui.view">
+            <field name="name">bm.official.salary.history.tree.view</field>
+            <field name="model">bm.official.salary.history</field>
+            <field name="arch" type="xml">
+                <tree string="Historial de movimientos de salario" create="false" delete="true">
+                    <field name="official_salary_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="official_salary_history_form_view" model="ir.ui.view">
+            <field name="name">bm.official.salary.history.form.view</field>
+            <field name="model">bm.official.salary.history</field>
+            <field name="arch" type="xml">
+                <form string="Historial de movimientos de salario" create="false" edit="false" delete="false">
+                    <sheet>
+                        <field name="official_salary_ids" options="{'no_create_edit': True}" />
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_official_salary_history_open_view" model="ir.actions.act_window">
+            <field name="name">Historial movimiento de salarios</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">bm.official.salary.history</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="official_salary_history_tree_view" />
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <div class="oe_view_nocontent_create">
+                    <p>Agregar una nueva liquidación de Salario!</p>
+                    <p>Todavia no tienes ninguna liquidación, puedes agregar en el botón Crear!</p>
+                </div>
+            </field>
+        </record>
+
+        <record id="action_official_create_officials_salary_txt" model="ir.actions.server">
+            <field name="name">Generar archivo de pago (TXT)</field>
+            <field name="model_id" ref="model_bm_official_salary" />
+            <field name="binding_model_id" ref="model_bm_official_salary" />
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = records.create_file_txt()
+            </field>
+        </record>
+
+        <record id="action_officials_salary_reset" model="ir.actions.server">
+            <field name="name">Reiniciar</field>
+            <field name="model_id" ref="model_bm_official_salary" />
+            <field name="binding_model_id" ref="model_bm_official_salary" />
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = records.action_reset()
+            </field>
+        </record>
+
+        <record id="action_official_create_officials_salary_sac_txt" model="ir.actions.server">
+            <field name="name">Generar archivo de aguinaldo (TXT)</field>
+            <field name="model_id" ref="model_bm_official_salary" />
+            <field name="binding_model_id" ref="model_bm_official_salary" />
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = records.create_file_txt('2')
+            </field>
+        </record>
+
+    </data>
+</odoo>
