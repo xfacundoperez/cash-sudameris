@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bm_res_country_location,access.res.country.location,model_res_country_location,,1,1,1,1
+access_bm_res_country_neighborhood,access.res.country.neighborhood,model_res_country_neighborhood,,1,1,1,1
+access_bm_branch,access.bm.branch,model_bm_branch,,1,1,1,1
+access_bm_official,access.bm.official,model_bm_official,,1,1,1,1
+access_bm_product,access.bm.product,model_bm_product,,1,1,1,1
+access_bm_department,access.bm.department,model_bm_department,,1,1,1,1
+access_bm_job,access.bm.job,model_bm_job,,1,1,1,1
+access_bm_official_category,access.bm.official.category,model_bm_official_category,,1,1,1,1
+access_bm_official_salary,access.bm.official.salary,model_bm_official_salary,,1,1,1,1
+access_bm_official_salary_history,access.bm.official.salary.history,model_bm_official_salary_history,,1,1,1,1
+access_bm_official_departure,access.bm.official.departure,model_bm_official_departure,,1,1,1,1
+access_bm_company_account,bm.company.account,model_bm_company_account,,1,1,1,1

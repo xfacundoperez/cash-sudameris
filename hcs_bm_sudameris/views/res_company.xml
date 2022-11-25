@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="bm_company_account_tree_view" model="ir.ui.view">
+            <field name="name">bm.company.account.tree.view</field>
+            <field name="model">bm.company.account</field>
+            <field name="arch" type="xml">
+                <tree string="Cuentas" editable="bottom">
+                    <field name="account" />
+                    <field name="module" />
+                    <field name="currency_type" />
+                    <field name="branch_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="open_view_bm_company_account" model="ir.actions.act_window">
+            <field name="name">Cuentas de Compañia</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">bm.company.account</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Agrega una nueva cuenta!
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="res_company_form_inherited_hcs_bm">
+            <field name="name">res.company.form.hcs.bm</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="company_code" />
+                    <field name="bantotal_account" />
+                </xpath>
+                <xpath expr="//group[@name='social_media']" position="after">
+                    <field name="account_ids" options="{'no_create_edit': True}" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

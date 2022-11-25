@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="official_departure_tree_view" model="ir.ui.view">
+            <field name="name">bm.official.departure.tree.view</field>
+            <field name="model">bm.official.departure</field>
+            <field name="arch" type="xml">
+                <tree string="Licencias" default_order="state" create="false" edit="false" export_xlsx="false" duplicate="false" decoration-danger="state in ['active']">
+                    <field name="official" />
+                    <field name="official_identification_id" />
+                    <field name="departure_reason" />
+                    <field name="departure_start" />
+                    <field name="departure_end" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="official_departure_form_view" model="ir.ui.view">
+            <field name="name">bm.official.departure.form.view</field>
+            <field name="model">bm.official.departure</field>
+            <field name="arch" type="xml">
+                <form string="Licencia del funcionario">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="active,finish" clickable="True" />
+                    </header>
+                    <sheet>
+                        <group string="Información del funcionario">
+                            <field name="official" attrs="{'readonly': [('official', '!=', None)]}" />
+                            <field name="official_identification_id" />
+                        </group>
+                        <group string="Información de la licencia">
+                            <group>
+                                <field name="departure_reason" attrs="{'readonly': [('official', '!=', None)]}" />
+                                <field name="departure_description" />
+                                <field name="departure_start" attrs="{'readonly': [('official', '!=', None)]}" />
+                                <field name="departure_end" attrs="{'readonly': [('departure_reason', 'in', ['fired', 'resigned', 'retired'])], 'required': [('departure_reason', '=', 'medical')]}" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="official_departure_search_view" model="ir.ui.view">
+            <field name="name">bm.official.departure.search.view</field>
+            <field name="model">bm.official.departure</field>
+            <field name="arch" type="xml">
+                <search string="Filtro de Licencias">
+                    <field name="official" filter_domain="[('official', 'ilike', self)]"></field>
+                    <separator />
+                    <filter string="Activos" name="state_filter" domain="[('state', '=', 'active')]"></filter>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_official_departure_open_view" model="ir.actions.act_window">
+            <field name="name">Licencias</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">bm.official.departure</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_state_filter":1}</field>
+            <field name="help" type="html">
+                <div class="oe_view_nocontent_create">
+                    <p>Licencias de los Funcionarios</p>
+                    <p>Todavia no se registró ninguna licencia, puedes agregarlas desde el formulario del Funcionario!</p>
+                </div>
+            </field>
+        </record>
+
+        <record id="action_official_departure_view_report_xlsx" model="ir.actions.server">
+            <field name="name">Informe de desvinculados</field>
+            <field name="model_id" ref="model_bm_official_departure" />
+            <field name="binding_model_id" ref="model_bm_official_departure" />
+            <field name="binding_view_types">list,form</field>
+            <field name='groups_id' eval="[(4, ref('hcs_bm_sudameris.group_bm_bank_collections'))]" />
+            <field name="state">code</field>
+            <field name="code">
+                action = record.action_departure_view_report()
+            </field>
+        </record>
+
+    </data>
+</odoo>

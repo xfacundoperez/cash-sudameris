@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="mail.channel" id="bm_mail_channel_group_bm_company" forcecreate="False">
+            <field name="name">General Empresas</field>
+            <field name="channel_type">chat</field>
+            <field name="public">groups</field>
+            <field name="email_send" eval="True" />
+            <field name="group_public_id" ref="hcs_bm_sudameris.group_bm_company" />
+            <field name="group_ids" eval="[(6, 0, [ref('hcs_bm_sudameris.group_bm_company')])]" />
+        </record>
+
+        <record model="mail.channel" id="bm_mail_channel_group_bm_bank" forcecreate="False">
+            <field name="name">General Banco</field>
+            <field name="channel_type">chat</field>
+            <field name="public">groups</field>
+            <field name="email_send" eval="True" />
+            <field name="group_public_id" ref="hcs_bm_sudameris.group_bm_bank" />
+            <field name="group_ids" eval="[(6, 0, [ref('hcs_bm_sudameris.group_bm_bank')])]" />
+        </record>
+
+        <record model="mail.channel" id="bm_mail_channel_group_bm_bank_payroll" forcecreate="False">
+            <field name="name">Centro Payroll</field>
+            <field name="channel_type">chat</field>
+            <field name="public">groups</field>
+            <field name="email_send" eval="True" />
+            <field name="group_public_id" ref="hcs_bm_sudameris.group_bm_bank_payroll" />
+            <field name="group_ids" eval="[(6, 0, [ref('hcs_bm_sudameris.group_bm_bank_payroll')])]" />
+        </record>
+
+        <record model="mail.channel" id="bm_mail_channel_group_bm_bank_cam" forcecreate="False">
+            <field name="name">Centro Altas Masivas</field>
+            <field name="channel_type">chat</field>
+            <field name="public">groups</field>
+            <field name="email_send" eval="True" />
+            <field name="group_public_id" ref="hcs_bm_sudameris.group_bm_bank_cam" />
+            <field name="group_ids" eval="[(6, 0, [ref('hcs_bm_sudameris.group_bm_bank_cam')])]" />
+        </record>
+
+        <record model="mail.channel" id="bm_mail_channel_group_bm_bank_payroll_deliveries" forcecreate="False">
+            <field name="name">Centro Payroll Entregas</field>
+            <field name="channel_type">chat</field>
+            <field name="public">groups</field>
+            <field name="email_send" eval="True" />
+            <field name="group_public_id" ref="hcs_bm_sudameris.group_bm_bank_payroll_deliveries" />
+            <field name="group_ids" eval="[(6, 0, [ref('hcs_bm_sudameris.group_bm_bank_payroll_deliveries')])]" />
+        </record>
+
+        <record model="mail.channel" id="bm_mail_channel_group_bm_bank_collections" forcecreate="False">
+            <field name="name">Centro Cobranzas</field>
+            <field name="channel_type">chat</field>
+            <field name="public">groups</field>
+            <field name="email_send" eval="True" />
+            <field name="group_public_id" ref="hcs_bm_sudameris.group_bm_bank_collections" />
+            <field name="group_ids" eval="[(6, 0, [ref('hcs_bm_sudameris.group_bm_bank_collections')])]" />
+        </record>
+    </data>
+
+</odoo>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="bm_official_departure_licence_wizard_view_form" model="ir.ui.view">
+            <field name="name">bm.official.departure.licence.wizard.form</field>
+            <field name="model">bm.official.departure.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Licencia del funcionario">
+                    <sheet>
+                        <group>
+                            <field name="departure_reason_licence" class="o_force_ltr" required="True" />
+                            <field name="departure_description" />
+                            <field name="departure_start" />
+                            <field name="departure_end" required="1" />
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="button_save" string="Guardar" type="object" class="btn-primary" />
+                        <button string="Cerrar" class="oe_highlight" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="bm_official_departure_licence_wizard_action" model="ir.actions.act_window">
+            <field name="name">Información de Licencia</field>
+            <field name="res_model">bm.official.departure.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="bm_official_departure_licence_wizard_view_form" />
+            <field name="target">new</field>
+        </record>
+
+        <record id="bm_official_departure_unlink_wizard_view_form" model="ir.ui.view">
+            <field name="name">bm.official.departure.unlink.wizard.form</field>
+            <field name="model">bm.official.departure.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Desvinculación del funcionario">
+                    <sheet>
+                        <group>
+                            <field name="departure_reason_unlink" class="o_force_ltr" required="True" />
+                            <field name="departure_description" />
+                            <field name="departure_start" />
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="button_save" string="Guardar" type="object" class="btn-primary" />
+                        <button string="Cerrar" class="oe_highlight" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="bm_official_departure_unlink_wizard_action" model="ir.actions.act_window">
+            <field name="name">Información de la Desvinculación</field>
+            <field name="res_model">bm.official.departure.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="bm_official_departure_unlink_wizard_view_form" />
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

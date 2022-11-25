@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+        <report id="bm_official_departure_note_report" string="Nota de desvinculación (PDF)" model="bm.official" report_type="qweb-pdf" menu="False" name="hcs_bm_sudameris.bm_official_departure_note_template" file="hcs_bm_sudameris.bm_official_departure_note_template" />
+
+        <template id="bm_official_departure_note_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <p style="text-align: right;">
+                            Asunción,
+                            <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d de %m de %Y')" />
+                        </p>
+                        <br />
+                        <h4>
+                            Señores
+                            <br />
+                            Sudameris Bank SAECA
+                            <br />
+                            Unidad de Cobranzas Banca de Personas
+                            <br />
+                            Unidad de Cuentas Corrientes
+                            <br />
+                            <u>Presente</u>
+                        </h4>
+                        <p>
+                            Nos dirigimos a Uds. en relación al
+                            <b>Contrato de Servicio de Pago de Haberes</b>
+                            que tenemos vigente, a fin de comunicarles la desvinculación laboral de los empleados que se detallan en el listado adjunto, solicitando la exclusión de los mismos de la nómina del personal vinculado a nuestra empresa.
+                        </p>
+                        <p>Sin otro particular nos despedimos cordialmente.</p>
+                        <br />
+                        <br />
+                        <br />
+                        <p>………………………………………………………………………</p>
+                        <p>FIRMAS AUTORIZADAS Y SELLO DE LA EMPRESA</p>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="bm.branch" id="bm_branch_1" forcecreate="False">
+            <field name="name">CANELIA</field>
+            <field name="code">1</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_2" forcecreate="False">
+            <field name="name">CAC Bautista</field>
+            <field name="code">2</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_3" forcecreate="False">
+            <field name="name">CAC Plaza Jesuitica</field>
+            <field name="code">3</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_4" forcecreate="False">
+            <field name="name">CAC Ciudad del ESTE</field>
+            <field name="code">4</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_10" forcecreate="False">
+            <field name="name">Casa Central</field>
+            <field name="code">10</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_13" forcecreate="False">
+            <field name="name">Sucursal Eusebio Ayala</field>
+            <field name="code">13</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_15" forcecreate="False">
+            <field name="name">Sucursal San Lorenzo</field>
+            <field name="code">15</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_20" forcecreate="False">
+            <field name="name">Sucursal Ciudad del Este</field>
+            <field name="code">20</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_21" forcecreate="False">
+            <field name="name">Sucursal Hernandarias</field>
+            <field name="code">21</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_23" forcecreate="False">
+            <field name="name">Sucursal Villa Morra</field>
+            <field name="code">23</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_24" forcecreate="False">
+            <field name="name">Sucursal Mercado de Abasto</field>
+            <field name="code">24</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_25" forcecreate="False">
+            <field name="name">Sucursal Brasilia</field>
+            <field name="code">25</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_27" forcecreate="False">
+            <field name="name">Sucursal Santa Rita</field>
+            <field name="code">27</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_30" forcecreate="False">
+            <field name="name">Sucursal Paran Country Club</field>
+            <field name="code">30</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_31" forcecreate="False">
+            <field name="name">Sucursal España</field>
+            <field name="code">31</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_32" forcecreate="False">
+            <field name="name">Sucursal Concepcion</field>
+            <field name="code">32</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_33" forcecreate="False">
+            <field name="name">Sucursal Mariano R.Alonso</field>
+            <field name="code">33</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_34" forcecreate="False">
+            <field name="name">Sucursal Katuete</field>
+            <field name="code">34</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_36" forcecreate="False">
+            <field name="name">Sucursal Luque</field>
+            <field name="code">36</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_38" forcecreate="False">
+            <field name="name">Sucursal Coronel Oviedo</field>
+            <field name="code">38</field>
+        </record>
+
+        <record model="bm.branch" id="bm_branch_42" forcecreate="False">
+            <field name="name">Sucursal Molas Lopez</field>
+            <field name="code">42</field>
+        </record>
+
+
+    </data>
+</odoo>

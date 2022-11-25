@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="bm_official_salary_wizard_view_form" model="ir.ui.view">
+            <field name="name">bm.official.salary.wizard.form</field>
+            <field name="model">bm.official.salary.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="2" colspan="4">
+                            <field name="message" nolabel="1" />
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Cerrar" class="oe_highlight" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="bm_official_salary_wizard_action" model="ir.actions.act_window">
+            <field name="name">Movimientos de Salarios Wizard</field>
+            <field name="res_model">bm.official.salary.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="bm_official_salary_wizard_view_form" />
+            <field name="target">new</field>
+        </record>
+
+        <!-- change password wizard -->
+        <record id="bm_official_salary_payment_reason_wizard_view" model="ir.ui.view">
+            <field name="name">Payment Reason Wizard</field>
+            <field name="model">bm.official.salary.payment.reason.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Payment Reason">
+                    <div style="margin-top: 5px; margin-bottom: 5px">
+                        <h5>No se registraron cobros en los ultimos 35 días de los siguientes funcionarios, especifique el motívo para luego poder generar el archivo de pago</h5>
+                    </div>
+                    <field name="payment_ids" />
+                    <footer>
+                        <button string="Save" name="save_reason_button" type="object" class="btn-primary" />
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="bm_official_salary_payment_reason_wizard_official_tree_view" model="ir.ui.view">
+            <field name="name">Payment Reason Official</field>
+            <field name="model">bm.official.salary.payment.reason</field>
+            <field name="arch" type="xml">
+                <!-- the user list is editable, but one cannot add or delete rows -->
+                <tree string="Funcionarios" editable="bottom" create="false" delete="false">
+                    <field name="official_id" readonly="True" options="{'no_open': True}" />
+                    <field name="payment_reason" required="True" />
+                </tree>
+            </field>
+        </record>
+        <!--<act_window id="bm_official_salary_payment_reason_wizard_action"
+            name="Payment Reason"
+            binding_model="bm.official.salary"
+            res_model="bm.official.salary.payment.reason.wizard"
+            view_mode="form" target="new"
+            groups="base.group_erp_manager"/>-->
+
+
+    </data>
+</odoo>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="group_hide_export" model="res.groups">
+        <field name="name">Export Visible</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+        <field name="users" eval="[(4, ref('base.user_root'))]" />
+    </record>
+
+    <record id="hcs_bm_sudameris.module_category_officials" model="ir.module.category">
+        <field name="name">Funcionarios</field>
+        <field name="description">Helps you manage your officials.</field>
+        <field name="sequence">9</field>
+    </record>
+
+    <record id="group_bm_company" model="res.groups">
+        <field name="name">Perfil Empresa</field>
+        <field name="comment">Descripción para el perfil empresa.</field>
+        <field name="category_id" ref="hcs_bm_sudameris.module_category_officials" />
+        <field name="implied_ids" eval="[(6, 0, [ref('base.group_private_addresses'), ref('base.group_user')])]" />
+    </record>
+
+    <record id="group_bm_bank" model="res.groups">
+        <field name="name">Perfil Banco</field>
+        <field name="comment">Descripción para el perfil banco.</field>
+        <field name="category_id" ref="hcs_bm_sudameris.module_category_officials" />
+        <field name="implied_ids" eval="[(6, 0, [ref('base.group_private_addresses'), ref('base.group_user')])]" />
+    </record>
+
+    <record id="group_bm_bank_payroll" model="res.groups">
+        <field name="name">Perfil Centro Payroll</field>
+        <field name="comment">Descripción para el perfil centro payroll.</field>
+        <field name="category_id" ref="hcs_bm_sudameris.module_category_officials" />
+        <field name="implied_ids" eval="[(4, ref('group_bm_bank'))]" />
+    </record>
+
+    <record id="group_bm_bank_payroll_admin" model="res.groups">
+        <field name="name">Perfil Centro Payroll (Administrador)</field>
+        <field name="comment">Descripción para el perfil centro payroll (administrador).</field>
+        <field name="category_id" ref="hcs_bm_sudameris.module_category_officials" />
+        <field name="implied_ids" eval="[(4, ref('group_bm_bank_payroll'))]" />
+    </record>
+
+    <record id="group_bm_bank_cam" model="res.groups">
+        <field name="name">Perfil Centro Altas Masivas</field>
+        <field name="comment">Descripción para el perfil centro altas masivas.</field>
+        <field name="category_id" ref="hcs_bm_sudameris.module_category_officials" />
+        <field name="implied_ids" eval="[(4, ref('group_bm_bank'))]" />
+    </record>
+
+    <record id="group_bm_bank_payroll_deliveries" model="res.groups">
+        <field name="name">Perfil Centro Payroll Entregas</field>
+        <field name="comment">Descripción para el perfil centro payroll - entregas.</field>
+        <field name="category_id" ref="hcs_bm_sudameris.module_category_officials" />
+        <field name="implied_ids" eval="[(4, ref('group_bm_bank'))]" />
+    </record>
+
+    <record id="group_bm_bank_collections" model="res.groups">
+        <field name="name">Perfil Centro Cobranzas</field>
+        <field name="comment">Descripción para el perfil cobranzas.</field>
+        <field name="category_id" ref="hcs_bm_sudameris.module_category_officials" />
+        <field name="implied_ids" eval="[(4, ref('group_bm_bank'))]" />
+    </record>
+
+    <data noupdate="0">
+        <record id="base.user_admin" model="res.users">
+            <field name="groups_id" eval="[(4,ref('group_bm_bank_payroll'))]" />
+        </record>
+
+        <record id="base.default_user" model="res.users">
+            <field name="groups_id" eval="[(4,ref('group_bm_company'))]" />
+        </record>
+
+        <!-- Reglas Empresa -->
+        <record id="bm_official_multi_comp_rule" model="ir.rule">
+            <field name="name">BM Official multi company rule</field>
+            <field name="model_id" ref="model_bm_official" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4,ref('group_bm_company'))]" />
+        </record>
+
+        <record id="bm_official_salary_multi_comp_rule" model="ir.rule">
+            <field name="name">BM Official Salary multi company rule</field>
+            <field name="model_id" ref="model_bm_official_salary" />
+            <field name="domain_force">['|',('official.company_id','=',False),('official.company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4,ref('group_bm_company'))]" />
+        </record>
+
+        <record id="bm_official_departured_multi_comp_rule" model="ir.rule">
+            <field name="name">BM Official Departured multi company rule</field>
+            <field name="model_id" ref="model_bm_official_departure" />
+            <field name="domain_force">['|',('official.company_id','=',False),('official.company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4,ref('group_bm_company'))]" />
+        </record>
+
+        <record id="bm_job_multi_comp_rule" model="ir.rule">
+            <field name="name">BM Job multi company rule</field>
+            <field name="model_id" ref="model_bm_job" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4,ref('group_bm_company'))]" />
+        </record>
+
+        <record id="bm_deptartment_multi_comp_rule" model="ir.rule">
+            <field name="name">BM Department multi company rule</field>
+            <field name="model_id" ref="model_bm_department" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4,ref('group_bm_company'))]" />
+        </record>
+
+        <!-- Reglas Banco -->
+        <record id="bm_official_multi_comp_rule_bank" model="ir.rule">
+            <field name="name">BM Official multi company rule bank</field>
+            <field name="model_id" ref="model_bm_official" />
+            <field name="domain_force"></field>
+            <field name="groups" eval="[(4,ref('group_bm_bank'))]" />
+        </record>
+
+        <record id="bm_official_salary_multi_comp_rule_bank" model="ir.rule">
+            <field name="name">BM Official Salary multi company rule bank</field>
+            <field name="model_id" ref="model_bm_official_salary" />
+            <field name="domain_force"></field>
+            <field name="groups" eval="[(4,ref('group_bm_bank'))]" />
+        </record>
+
+        <record id="bm_official_departured_multi_comp_rule_bank" model="ir.rule">
+            <field name="name">BM Official Departured multi company rule bank</field>
+            <field name="model_id" ref="model_bm_official_departure" />
+            <field name="domain_force"></field>
+            <field name="groups" eval="[(4,ref('group_bm_bank'))]" />
+        </record>
+
+        <record id="bm_job_multi_comp_rule_bank" model="ir.rule">
+            <field name="name">BM Job multi company rule bank</field>
+            <field name="model_id" ref="model_bm_job" />
+            <field name="domain_force"></field>
+            <field name="groups" eval="[(4,ref('group_bm_bank'))]" />
+        </record>
+
+        <record id="bm_deptartment_multi_comp_rule_bank" model="ir.rule">
+            <field name="name">BM Department multi company rule bank</field>
+            <field name="model_id" ref="model_bm_department" />
+            <field name="domain_force"></field>
+            <field name="groups" eval="[(4,ref('group_bm_bank'))]" />
+        </record>
+
+
+    </data>
+</odoo>

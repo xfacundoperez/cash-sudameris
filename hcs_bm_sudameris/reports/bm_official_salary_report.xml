@@ -1,0 +1,135 @@
+<odoo>
+    <data>
+        <report id="bm_official_salary_report" string="Nota (PDF)" model="bm.official.salary" report_type="qweb-pdf" groups="hcs_bm_sudameris.group_bm_bank" name="hcs_bm_sudameris.bm_official_salary_template" />
+
+        <template id="bm_official_salary_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <style>
+                        table, th {
+                            border-collapse: collapse;
+                        }
+                        td {
+                            border: 2px solid black;
+                        }
+                    </style>
+                    <div class="page">
+                        <center>
+                            <b>
+                                <u>
+                                    <h2>AUTORIZACIÓN PARA PAGO DE SALARIOS</h2>
+                                </u>
+                            </b>
+                            <div class="oe_structure" />
+                            <table style="width: 100%;">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2">Nombre Empresa</td>
+                                        <td colspan="2">
+                                            <span t-field="user.company_id"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Cód. Empresa</td>
+                                        <td colspan="2">
+                                            <span t-field="user.company_id.company_code" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Servicio</td>
+                                        <td colspan="2">Pago de Sueldos via banco</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Tipo de Pago</td>
+                                        <td colspan="2" t-if="sac == '1'">Sueldo</td>
+                                        <td colspan="2" t-if="sac == '2'">Aguinaldo</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Cuenta Débito</td>
+                                        <td colspan="2">
+                                            <span t-field="user.company_id.bantotal_account" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Cód. de Referencia</td>
+                                        <td colspan="2">
+                                            <span t-esc="referencia" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Fecha de Proceso</td>
+                                        <td colspan="2">
+                                            <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="border: 0; height: 20px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">TOTAL CRÉDITO</td>
+                                        <t t-set="amount_to_pay_total" t-value="0" />
+                                        <t t-foreach="docs" t-as="doc">
+                                            <t t-set="amount_to_pay_total" t-value="amount_to_pay_total + doc.amount_to_pay" />
+                                        </t>
+                                        <td style="text-align: left;">
+                                            ₲
+                                            <t t-esc="'%.2f'%(amount_to_pay_total)" />
+                                        </td>
+                                        <td style="border-right: 0; border-top: 0;"></td>
+                                    </tr>
+                                    <tr style="background-color: #c00000;text-align: center;color: white;">
+                                        <td>N°</td>
+                                        <td>N° DE CEDULA</td>
+                                        <td>N° DE CUENTA</td>
+                                        <td>DENOMINACIÓN</td>
+                                        <td>IMPORTE</td>
+                                    </tr>
+                                    <t t-set="counter" t-value="1" />
+                                    <t t-foreach="docs" t-as="doc">
+                                        <tr style="">
+                                            <td style="border: 0;">
+                                                <t t-esc="counter" />
+                                            </td>
+                                            <td style="border: 0;">
+                                                <span t-field="doc.official_identification_id" />
+                                            </td>
+                                            <td style="border: 0;">
+                                                <span t-field="doc.official.account_number" />
+                                            </td>
+                                            <td style="border: 0;">
+                                                <span t-field="doc.official.name" />
+                                            </td>
+                                            <td style="border: 0;">
+                                                <span t-field="doc.amount_to_pay" />
+                                            </td>
+                                        </tr>
+                                        <t t-set="counter" t-value="counter + 1" />
+                                    </t>
+                                </tbody>
+                            </table>
+                            <br />
+                            <h4>
+                                Autorizamos al Sudameris Bank S.A.E.C.A. a debitar nuestra Cuenta Nro.
+                                <b>0</b>
+                                el importe
+                            total de Gs
+                                <b>
+                                    <t t-esc="'%.2f'%(amount_to_pay_total)" />
+                                </b>
+                                (
+                                <b>
+                                    <span style="text-transform: uppercase" t-esc="docs.numero_a_letras(amount_to_pay_total)" />
+                                </b>
+                                ) y acreditar a los distintos funcionarios en las
+                            cuentas descriptas con sus respectivos importes detallados.
+                            </h4>
+                            <hr style="border: 2px solid;" />
+                            <h4 style="text-align: left;">Firma Autorizada:</h4>
+                        </center>
+                    </div>
+                    <div class="footer"></div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
